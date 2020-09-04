@@ -5,6 +5,12 @@ package _03_jukebox;
  */
 
 
+import java.awt.Button;
+import java.awt.Frame;
+import java.awt.Label;
+import java.awt.Panel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -12,7 +18,10 @@ import java.net.URL;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import javazoom.jl.player.advanced.AdvancedPlayer;
@@ -20,9 +29,17 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 /*   If you don't have javazoom.jar in your project, you can download it from here: http://bit.ly/javazoom
  *   Right click your project and add it as a JAR (Under Java Build Path > Libraries).*/
 
-public class Jukebox implements Runnable {
-
-    public void run() {
+public class Jukebox implements Runnable, ActionListener {
+	private Icon loadImage(String fileName) {
+		URL imageURL = getClass().getResource(fileName);
+		Icon icon = new ImageIcon(imageURL);
+		return icon;
+	}
+	JButton button1 = new JButton();
+	JButton button2 = new JButton();
+	Song comeAndGo = new Song("comeandgo.mp3");
+	Song nascarRacer = new Song("nascarracer.mp3");
+	public void run() {
 
 		// 1. Find an mp3 on your computer or on the Internet.
 		// 2. Create a Song object for that mp3
@@ -36,15 +53,42 @@ public class Jukebox implements Runnable {
 		 * cover is clicked, stop the currently playing song, and play the one
 		 * that was selected.
 		 */
+    	JFrame frame = new JFrame();
+    	JPanel panel = new JPanel();
+    	JLabel label = new JLabel();
+    	JLabel labelbutton1 = new JLabel();
+    	frame.add(panel);
+    	panel.add(label);
+    	panel.add(button1);
+    	panel.add(button2);
+    	label.setText("Song Player");
+    	panel.add(labelbutton1);
+    	button1.setIcon(loadImage("download.jpeg"));
+    	button2.setIcon(loadImage("download1.jpeg"));
+    	button1.addActionListener(this);
+    	button2.addActionListener(this);
+    	frame.pack();
+    	frame.setVisible(true);
+    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(button1 == e.getSource()) {
+			System.out.println("come and go");
+			nascarRacer.stop();
+			comeAndGo.play();
+		}
+		if(button2 == e.getSource()) {
+			comeAndGo.stop();
+			nascarRacer.play();
+			System.out.println("Nascar Racer");
+		}
+	}
     
     
 	/* Use this method to add album covers to your Panel. */
-	private JLabel loadImage(String fileName) {
-		URL imageURL = getClass().getResource(fileName);
-		Icon icon = new ImageIcon(imageURL);
-		return new JLabel(icon);
-	}
+	
 
 }
 

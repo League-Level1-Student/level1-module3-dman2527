@@ -12,8 +12,10 @@ public class Backpack {
 	public void packAndCheck() {
 		// Your mission is to go to school.
 		// 1. First you need to put all your supplies into your backpack - use
-		// the putInBackpack(...) methods
-
+		// the putInBackpack(...) methods	
+		putInBackpack(new Pencil());
+		putInBackpack(new Ruler());
+		putInBackpack(new Textbook());
 		goToSchool();
 	}
 
