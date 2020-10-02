@@ -16,7 +16,7 @@ public class CowTimer {
 		
 	 */
 	public CowTimer(int minutes1) {
-		int minutes = minutes1;
+		this.minutes = minutes1;
 	}
 
 	/* 4. Complete the main method of the CowTimerRunner class */
@@ -32,10 +32,16 @@ public class CowTimer {
 		/*
 		 * 2. Count down the minutes, print the current minute then sleep for the number
 		 * of minutes using Thread.sleep(int milliseconds).
-		 */for(int i=0;i<minutes;i++) {
-			 System.out.println("Minutes left:"+minutes);
-			 Thread.sleep(1000);
+		 */System.out.println("Minutes Left:"+minutes+":00");
+		   Thread.sleep(1000);
+			for(int m=0;m<minutes;m++) {
+				for(int s=59;s>-1;s--) {
+					System.out.println("Minutes Left:"+((minutes-1)-m)+":"+String.format("%02d", s)); 
+					Thread.sleep(1000);
+			}
+			
 		 }
+		 System.out.println("Timer Has Finished!");
 		 playSound("moo.wav");
 
 		/*
